@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторна робота №4</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h2 { color: #2c3e50; }
+        #slideshow-container { margin-top: 20px; }
+    </style>
+</head>
+<body>
+<h2>Лабораторна робота №4 — JavaScript (Завдання 1–9)</h2>
+<p>Результати завдань дивіться у Console браузера. Слайд-шоу внизу сторінки.</p>
+
+<script>
+// ====================== ЗАВДАННЯ 1 ============================
+console.log("===== ЗАВДАННЯ 1 =====");
+let value = prompt("Завдання 1: Введіть число:");
+console.log(`Ви ввели: ${value}`);
+let number = Number(value);
+if (isNaN(number)) { alert("Ви ввели не число!"); }
+else if (number > 0) alert("Число додатнє");
+else if (number < 0) alert("Число від’ємне");
+else alert("Число дорівнює нулю");
+
+// ====================== ЗАВДАННЯ 2 ============================
+console.log("===== ЗАВДАННЯ 2 =====");
+let seasonNumber = prompt("Завдання 2: Введіть число від 1 до 4:");
+let result;
+switch (seasonNumber) {
+    case "1": result = "зима"; break;
+    case "2": result = "весна"; break;
+    case "3": result = "літо"; break;
+    case "4": result = "осінь"; break;
+    default: result = "невідоме значення";
+}
+console.log(`Результат: ${result}`);
+
+// ====================== ЗАВДАННЯ 3 ============================
+console.log("===== ЗАВДАННЯ 3 =====");
+const ADMIN_LOGIN = "Admin", ADMIN_PASSWORD = "12345";
+const USER_LOGIN = "User", USER_PASSWORD = "qwerty";
+let login = prompt("Завдання 3: Введіть логін:");
+console.log(`Ви ввели логін: ${login}`);
+if (login === ADMIN_LOGIN) {
+    let pass = prompt("Введіть пароль Admin:");
+    if (pass === ADMIN_PASSWORD) alert("Hello, Admin");
+    else if (!pass) alert("Cancelled");
+    else alert("I don't know you");
+} else if (login === USER_LOGIN) {
+    let pass = prompt("Введіть пароль User:");
+    if (pass === USER_PASSWORD) alert("Hello, User");
+    else if (!pass) alert("Cancelled");
+    else alert("I don't know you");
+} else if (!login) alert("Cancelled");
+else alert("I don't know you");
+
+// ====================== ЗАВДАННЯ 4 ============================
+console.log("===== ЗАВДАННЯ 4 =====");
+function makeTransaction(quantity, pricePerDroid) {
+    return `You ordered ${quantity} droids worth ${quantity * pricePerDroid} credits!`;
+}
+let droidQty = Number(prompt("Завдання 4: Введіть кількість дроїдів:"));
+let droidPrice = Number(prompt("Введіть ціну одного дроїда:"));
+console.log(makeTransaction(droidQty, droidPrice));
+
+// ====================== ЗАВДАННЯ 5 ============================
+console.log("===== ЗАВДАННЯ 5 =====");
+function checkForSpam(message) {
+    let text = message.toLowerCase();
+    return text.includes("spam") || text.includes("sale");
+}
+let userMessage = prompt("Завдання 5: Введіть повідомлення для перевірки на SPAM:");
+console.log("SPAM found? →", checkForSpam(userMessage));
+
+// ====================== ЗАВДАННЯ 6 ============================
+console.log("===== ЗАВДАННЯ 6 =====");
+function filterArray(numbers, value) {
+    let filtered = [];
+    for (let num of numbers) if (num > value) filtered.push(num);
+    return filtered;
+}
+let numbersInput = prompt("Завдання 6: Введіть масив чисел через кому (наприклад: 1,5,8,10):");
+let valueInput = Number(prompt("Введіть число для порівняння:"));
+let numbersArray = numbersInput.split(",").map(n => Number(n.trim()));
+console.log("Введений масив:", numbersArray);
+console.log("Результат:", filterArray(numbersArray, valueInput));
+
+// ====================== ЗАВДАННЯ 7 ============================
+console.log("===== ЗАВДАННЯ 7 =====");
+function generateArray(length) {
+    let arr = [];
+    for (let i = 0; i < length; i++) arr.push(Math.floor(Math.random() * 100) - 50);
+    return arr;
+}
+function findMinEven(arr) { return Math.min(...arr.filter((_, idx) => idx % 2 === 0)); }
+function findMaxEven(arr) { return Math.max(...arr.filter((_, idx) => idx % 2 === 0)); }
+function findMinOdd(arr) { return Math.min(...arr.filter((_, idx) => idx % 2 !== 0)); }
+function findMaxOdd(arr) { return Math.max(...arr.filter((_, idx) => idx % 2 !== 0)); }
+function selectionSortDesc(arr) {
+    let a = [...arr];
+    for (let i = 0; i < a.length - 1; i++) {
+        let maxIndex = i;
+        for (let j = i + 1; j < a.length; j++) if (a[j] > a[maxIndex]) maxIndex = j;
+        [a[i], a[maxIndex]] = [a[maxIndex], a[i]];
+    }
+    return a;
+}
+let length7 = Number(prompt("Завдання 7: Введіть кількість елементів масиву:"));
+let arr7 = generateArray(length7);
+console.log("Початковий масив:", arr7);
+console.log("Min (парні):", findMinEven(arr7));
+console.log("Max (парні):", findMaxEven(arr7));
+console.log("Min (непарні):", findMinOdd(arr7));
+console.log("Max (непарні):", findMaxOdd(arr7));
+console.log("Відсортований масив (спадання):", selectionSortDesc(arr7));
+
+// ====================== ЗАВДАННЯ 8 ============================
+console.log("===== ЗАВДАННЯ 8 =====");
+function generate2D(rows, cols) {
+    let matrix = [];
+    for (let i = 0; i < rows; i++) {
+        let row = [];
+        for (let j = 0; j < cols; j++) row.push(Math.floor(Math.random() * 40) - 20);
+        matrix.push(row);
+    }
+    return matrix;
+}
+let matrix = generate2D(4, 5);
+console.log("Початковий 2D масив:");
+console.table(matrix);
+let positives = [], negatives = [];
+for (let row of matrix) for (let num of row) if (num >= 0) positives.push(num); else negatives.push(num);
+if (positives.length >= 3 && positives[2] < 0) positives[2] = Math.floor(Math.random() * 20) + 1;
+console.log("Масив додатних (початковий):", positives);
+console.log("Масив від’ємних:", negatives);
+if (positives.length >= 3) {
+    let newNeg = Number(prompt("Завдання 8: Введіть нове від’ємне число для заміни 3-го елемента у масиві додатних:"));
+    positives[2] = newNeg;
+}
+console.log("Оновлений масив додатних:", positives);
+
+// ====================== ЗАВДАННЯ 9 ============================
+console.log("===== ЗАВДАННЯ 9 ===== Слайд-шоу");
+
+// --- Масив реальних зображень ---
+let images = [
+    "https://i.pinimg.com/474x/59/8d/5e/598d5e7e2f1e878f9f3ccab792a97ab1.jpg", 
+    "https://ulibky.ru/wp-content/uploads/2021/07/krasivye_kartinki_prirody_5_05142337.jpg", 
+    "https://www.5.ua/media/pictures/original/291653.jpg?t=1722155051", 
+    "https://hdpic.club/uploads/posts/2021-12/1638958745_1-hdpic-club-p-samolet-kartinki-krasivie-1.jpg"
+];
+
+// --- Параметри слайд-шоу ---
+let slideWidth = 300;  // ширина
+let slideHeight = 200; // висота
+let intervalTime = 2000; // час між переключеннями (мс)
+
+// --- Контейнер для слайд-шоу ---
+let container = document.createElement("div");
+container.id = "slideshow-container";
+container.style.width = slideWidth + "px";
+container.style.height = slideHeight + "px";
+container.style.border = "1px solid #000";
+container.style.overflow = "hidden";
+container.style.position = "relative";
+container.style.marginTop = "20px";
+document.body.appendChild(container);
+
+// --- Зображення ---
+let img = document.createElement("img");
+img.src = images[0];
+img.style.width = slideWidth + "px";
+img.style.height = slideHeight + "px";
+img.style.position = "absolute";
+container.appendChild(img);
+
+// --- Логіка слайд-шоу ---
+let currentIndex = 0;
+setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
+    img.src = images[currentIndex];
+}, intervalTime);
+</script>
+
+</body>
+</html>
